@@ -29,32 +29,26 @@ export default function Footer() {
             </h4>
             <nav className="space-y-2.5">
               {[
-                { label: 'Accueil', href: '/', scroll: false },
-                { label: 'Nos Prestations', href: '#services', scroll: true },
-                { label: 'Galerie', href: '#galerie', scroll: true },
-                { label: 'Réservation', href: '#contact', scroll: true },
-              ].map((link) =>
-                link.scroll ? (
-                  <button
-                    key={link.label}
-                    onClick={() => {
+                { label: 'Accueil', href: '/' },
+                { label: 'Nos Prestations', href: '#services' },
+                { label: 'Galerie', href: '#galerie' },
+                { label: 'Réservation', href: '#contact' },
+              ].map((link) => (
+                <button
+                  key={link.label}
+                  onClick={() => {
+                    if (link.href === '/') {
+                      window.scrollTo({ top: 0, behavior: 'smooth' })
+                    } else {
                       const el = document.querySelector(link.href)
                       if (el) el.scrollIntoView({ behavior: 'smooth' })
-                    }}
-                    className="block font-sans text-sm font-light text-cream/50 hover:text-cream transition-colors"
-                  >
-                    {link.label}
-                  </button>
-                ) : (
-                  <Link
-                    key={link.label}
-                    to={link.href}
-                    className="block font-sans text-sm font-light text-cream/50 hover:text-cream transition-colors"
-                  >
-                    {link.label}
-                  </Link>
-                )
-              )}
+                    }
+                  }}
+                  className="block font-sans text-sm font-light text-cream/50 hover:text-cream transition-colors"
+                >
+                  {link.label}
+                </button>
+              ))}
             </nav>
           </div>
 

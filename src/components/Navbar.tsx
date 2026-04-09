@@ -23,7 +23,9 @@ export default function Navbar() {
 
   const scrollTo = (href: string) => {
     setMobileOpen(false)
-    if (href.startsWith('#')) {
+    if (href === '/') {
+      window.scrollTo({ top: 0, behavior: 'smooth' })
+    } else if (href.startsWith('#')) {
       const el = document.querySelector(href)
       if (el) el.scrollIntoView({ behavior: 'smooth' })
     }
@@ -59,27 +61,16 @@ export default function Navbar() {
 
           {/* Desktop links */}
           <div className="hidden md:flex items-center gap-8">
-            {navLinks.map((link) =>
-              link.href.startsWith('#') ? (
-                <button
-                  key={link.label}
-                  onClick={() => scrollTo(link.href)}
-                  className="text-sm tracking-[0.12em] uppercase font-sans font-light text-bark hover:text-espresso transition-colors relative group"
-                >
-                  {link.label}
-                  <span className="absolute -bottom-0.5 left-0 w-0 h-px bg-sage-deep group-hover:w-full transition-all duration-300" />
-                </button>
-              ) : (
-                <Link
-                  key={link.label}
-                  to={link.href}
-                  className="text-sm tracking-[0.12em] uppercase font-sans font-light text-bark hover:text-espresso transition-colors relative group"
-                >
-                  {link.label}
-                  <span className="absolute -bottom-0.5 left-0 w-0 h-px bg-sage-deep group-hover:w-full transition-all duration-300" />
-                </Link>
-              )
-            )}
+            {navLinks.map((link) => (
+              <button
+                key={link.label}
+                onClick={() => scrollTo(link.href)}
+                className="text-sm tracking-[0.12em] uppercase font-sans font-light text-bark hover:text-espresso transition-colors relative group"
+              >
+                {link.label}
+                <span className="absolute -bottom-0.5 left-0 w-0 h-px bg-sage-deep group-hover:w-full transition-all duration-300" />
+              </button>
+            ))}
           </div>
 
           {/* CTA button */}
@@ -110,35 +101,18 @@ export default function Navbar() {
             transition={{ duration: 0.3, ease: 'easeOut' }}
             className="fixed top-0 left-0 right-0 bottom-0 z-40 glass-card flex flex-col items-center justify-center gap-8"
           >
-            {navLinks.map((link, i) =>
-              link.href.startsWith('#') ? (
-                <motion.button
-                  key={link.label}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: i * 0.08 }}
-                  onClick={() => scrollTo(link.href)}
-                  className="font-serif text-3xl text-espresso hover:text-sage-deep transition-colors"
-                >
-                  {link.label}
-                </motion.button>
-              ) : (
-                <motion.div
-                  key={link.label}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: i * 0.08 }}
-                >
-                  <Link
-                    to={link.href}
-                    onClick={() => setMobileOpen(false)}
-                    className="font-serif text-3xl text-espresso hover:text-sage-deep transition-colors"
-                  >
-                    {link.label}
-                  </Link>
-                </motion.div>
-              )
-            )}
+            {navLinks.map((link, i) => (
+              <motion.button
+                key={link.label}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: i * 0.08 }}
+                onClick={() => scrollTo(link.href)}
+                className="font-serif text-3xl text-espresso hover:text-sage-deep transition-colors"
+              >
+                {link.label}
+              </motion.button>
+            ))}
             <motion.button
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
